@@ -1,103 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Moviez Template</title>
-  <style>
-    /* General Body Styles */
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: #101010;
-      color: white;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-    }
-
-    /* Header Styles */
-    h1 {
-      font-size: 36px;
-      font-weight: 700;
-      color: #FF5722;
-      margin-bottom: 40px;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Button Container */
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 15px;
-      padding: 20px;
-      max-width: 1200px;
-      width: 100%;
-      justify-items: center;
-    }
-
-    /* Button Styles */
-    .btn-link {
-      padding: 12px 20px;
-      border: none;
-      color: white;
-      text-decoration: none;
-      border-radius: 50px;
-      font-size: 14px;
-      font-weight: bold;
-      display: inline-block;
-      text-align: center;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .btn-link:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Button Color Themes */
-    .green { background-color: #4CAF50; }
-    .red { background-color: #F44336; }
-    .blue { background-color: #2196F3; }
-    .orange { background-color: #FF9800; }
-    .gray { background-color: #607D8B; }
-
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 28px;
-      }
-
-      .container {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      }
-    }
-  </style>
+  <title>Pluto TV Test Stream</title>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
+  <h2>Pluto TV Test Stream</h2>
+  <video id="video" controls width="640" height="360"></video>
 
-  <!-- Main Header -->
-  <h1>My Moviez Template</h1>
+  <script>
+    var video = document.getElementById('video');
+    var videoSrc = "https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/654102ed770cf1000866c307/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=2c7c9e98-35fc-11ef-a031-2b5d494037a2&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=4c7b00a0-d803-41b5-95bb-c20d39e69ce2";
 
-  <!-- Buttons Container -->
-  <div class="container">
-    <a class="btn-link green" href="https://www.google.com/search?q=filmyzilla" target="_blank">filmyzilla</a>
-    <a class="btn-link blue" href="https://www.google.com/search?q=BollyFlix" target="_blank">BollyFlix</a>
-    <a class="btn-link blue" href="https://www.google.com/search?q=Bolly4u" target="_blank">Bolly4u</a>
-    <a class="btn-link orange" href="https://www.google.com/search?q=Jalshamoviez" target="_blank">Jalshamoviez</a>
-    <a class="btn-link orange" href="https://www.google.com/search?q=Vegamovies" target="_blank">Vegamovies</a>
-    <a class="btn-link green" href="https://www.google.com/search?q=Mp4Moviez" target="_blank">Mp4Moviez</a>
-    <a class="btn-link red" href="https://www.google.com/search?q=Movies4U" target="_blank">Movies4U</a>
-    <a class="btn-link red" href="https://www.google.com/search?q=HDHub4u" target="_blank">HDHub4u</a>
-    <a class="btn-link red" href="https://www.google.com/search?q=UHDMovies" target="_blank">UHDMovies</a>
-    <a class="btn-link gray" href="https://www.google.com/search?q=JoshMovies" target="_blank">JoshMovies</a>
-    <a class="btn-link green" href="https://www.google.com/search?q=The MovieVerse" target="_blank">MovieVerse</a>
-    <a class="btn-link green" href="https://wwv-fmovies.com/home" target="_blank">fmovies</a>
-  </div>
-
+    if (Hls.isSupported()) {
+      var hls = new Hls();
+      hls.loadSource(videoSrc);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        video.play();
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = videoSrc;
+      video.addEventListener('loadedmetadata', function () {
+        video.play();
+      });
+    }
+  </script>
 </body>
 </html>
