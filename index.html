@@ -78,25 +78,41 @@
   <div class="gallery" id="gallery"></div>
 
   <script>
-    fetch('movies.json')
-      .then(res => res.json())
-      .then(movies => {
-        const gallery = document.getElementById('gallery');
-        movies.forEach(movie => {
-          const card = document.createElement('div');
-          card.className = 'card';
-          card.onclick = () => window.location.href = `player.html?id=${movie.id}`;
-          card.innerHTML = `
-            <img src="${movie.poster}" alt="${movie.title}">
-            <div class="card-title">${movie.title}</div>
-            <div class="card-category">${movie.category}</div>
-          `;
-          gallery.appendChild(card);
-        });
-      })
-      .catch(err => {
-        console.error('Failed to load movie data:', err);
-      });
-  </script>
+  let allMovies = [];
+
+  fetch('movies.json')
+    .then(res => res.json())
+    .then(movies => {
+      allMovies = movies;
+      displayMovies(allMovies);
+    });
+
+  function displayMovies(movies) {
+    const gallery = document.getElementById('gallery');
+    gallery.innerHTML = '';
+    movies.forEach(movie => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.onclick = () => window.location.href = `player.html?id=${movie.id}`;
+      card.innerHTML = `
+        <img src="${movie.poster}" alt="${movie.title}">
+        <div class="card-title">${movie.title}</div>
+        <div class="card-category">${movie.category}</div>
+      `;
+      gallery.appendChild(card);
+    });
+  }
+
+  // ✅ SEARCH Feature
+  document.getElementById('searchInput').addEventListener('input', function () {
+    const searchTerm = this.value.toLowerCase();
+    const filtered = allMovies.filter(movie => 
+      movie.title.toLowerCase().includes(searchTerm) || 
+      movie.category.toLowerCase().includes(searchTerm)
+    );
+    displayMovies(filtered);
+  });
+</script>
+
 </body>
 </html>
