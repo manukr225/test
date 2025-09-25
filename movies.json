@@ -3,7 +3,7 @@
     "id": "1",
     "title": "Fantastic Four: First Steps",
     "category": "Action",
-    "poster": "https://via.placeholder.com/250x350?text=Fantastic+Four",
+    "poster": "https://pacdn.aoneroom.com/image/2025/08/06/8cb7fa894b9e9d2e0859d53bc527acf7.jpg?x-oss-process=image/resize%2Cw_250",
     "type": "hls",
     "video_url": "https://hi1qz0vp55y7ifq.premilkyway.com/hls2/01/11745/p4e9dexgr2lp_,l,n,h,.urlset/master.m3u8?t=_sEXoiSw84xTKfK1kPEdeSt-vwokI5wO5yjnKup4kZ0&s=1758784848&e=129600&f=58728669&srv=ts09ruf2imyzcv&i=0.4&sp=500&p1=ts09ruf2imyzcv&p2=ts09ruf2imyzcv&asn=55836"
   },
@@ -11,8 +11,15 @@
     "id": "2",
     "title": "Spider-Man Reloaded",
     "category": "Adventure",
-    "poster": "https://via.placeholder.com/250x350?text=Spider-Man",
+    "poster": "https://pacdn.aoneroom.com/image/2025/08/06/8cb7fa894b9e9d2e0859d53bc527acf7.jpg?x-oss-process=image/resize%2Cw_250",
     "type": "iframe",
     "video_url": "https://multimovies.store/movies/lokah-chapter-1-chandra"
+  },{
+    "id": "2",
+    "title": "chandra",
+    "category": "Adventure",
+    "poster": "https://pacdn.aoneroom.com/image/2025/08/06/8cb7fa894b9e9d2e0859d53bc527acf7.jpg?x-oss-process=image/resize%2Cw_250",
+    "type": "iframe",
+    "video_url": "https://fmoviesunblocked.net/spa/videoPlayPage/movies/red-sonja-ggymxF5DGN2?id=2351223921963420280&type=/movie/detail&lang=en"
   }
 ]
