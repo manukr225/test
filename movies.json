@@ -12,7 +12,7 @@
     "title": "Spider-Man Reloaded",
     "category": "Adventure",
     "poster": "https://pacdn.aoneroom.com/image/2025/08/06/8cb7fa894b9e9d2e0859d53bc527acf7.jpg?x-oss-process=image/resize%2Cw_250",
-    "type": "iframe",
+    "type": "hls",
     "video_url": "https://hdstream4u.com/stream/kxZVjiwgi70Q-EBESJy8lg/hjkrhuihghfvu/1758838629/31935096/master.m3u8"
   },{
     "id": "3",
