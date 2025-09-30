@@ -31,15 +31,15 @@
     }
 
     .card {
-      width: 200px;
       background: #222;
       border-radius: 8px;
       overflow: hidden;
       text-align: center;
       cursor: pointer;
       transition: transform 0.2s;
-      flex: 1 1 200px;
-      max-width: 200px;
+      flex: 1 1 calc(25% - 20px);
+      max-width: calc(25% - 20px);
+      min-width: 160px;
     }
 
     .card:hover {
@@ -49,6 +49,7 @@
     .card img {
       width: 100%;
       height: auto;
+      display: block;
     }
 
     .card-title {
@@ -61,60 +62,80 @@
       font-size: 0.9em;
       color: #bbb;
     }
+
+    /* Responsive breakpoints */
+    @media (max-width: 1024px) {
+      .card {
+        flex: 1 1 calc(33.33% - 20px);
+        max-width: calc(33.33% - 20px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
-    
     <h1>🎬 Movie Gallery</h1>
   </header>
 
   <div style="padding: 20px; text-align: center;">
-  <input 
-    type="text" 
-    id="searchInput" 
-    placeholder="Search movies..." 
-    style="padding: 10px; width: 300px; border-radius: 5px; border: none; font-size: 16px;">
-</div>
+    <input 
+      type="text" 
+      id="searchInput" 
+      placeholder="Search movies..." 
+      style="padding: 10px; width: 300px; max-width: 90vw; border-radius: 5px; border: none; font-size: 16px;">
+  </div>
 
   <div class="gallery" id="gallery"></div>
 
   <script>
-  let allMovies = [];
+    let allMovies = [];
 
-  fetch('movies.json')
-    .then(res => res.json())
-    .then(movies => {
-      allMovies = movies;
-      displayMovies(allMovies);
+    fetch('movies.json')
+      .then(res => res.json())
+      .then(movies => {
+        allMovies = movies;
+        displayMovies(allMovies);
+      });
+
+    function displayMovies(movies) {
+      const gallery = document.getElementById('gallery');
+      gallery.innerHTML = '';
+      movies.forEach(movie => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = () => window.location.href = `player.html?id=${movie.id}`;
+        card.innerHTML = `
+          <img src="${movie.poster}" alt="${movie.title}">
+          <div class="card-title">${movie.title}</div>
+          <div class="card-category">${movie.category}</div>
+        `;
+        gallery.appendChild(card);
+      });
+    }
+
+    // SEARCH Feature
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const searchTerm = this.value.toLowerCase();
+      const filtered = allMovies.filter(movie => 
+        movie.title.toLowerCase().includes(searchTerm) || 
+        movie.category.toLowerCase().includes(searchTerm)
+      );
+      displayMovies(filtered);
     });
-
-  function displayMovies(movies) {
-    const gallery = document.getElementById('gallery');
-    gallery.innerHTML = '';
-    movies.forEach(movie => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.onclick = () => window.location.href = `player.html?id=${movie.id}`;
-      card.innerHTML = `
-        <img src="${movie.poster}" alt="${movie.title}">
-        <div class="card-title">${movie.title}</div>
-        <div class="card-category">${movie.category}</div>
-      `;
-      gallery.appendChild(card);
-    });
-  }
-
-  // ✅ SEARCH Feature
-  document.getElementById('searchInput').addEventListener('input', function () {
-    const searchTerm = this.value.toLowerCase();
-    const filtered = allMovies.filter(movie => 
-      movie.title.toLowerCase().includes(searchTerm) || 
-      movie.category.toLowerCase().includes(searchTerm)
-    );
-    displayMovies(filtered);
-  });
-</script>
-
+  </script>
 </body>
 </html>
