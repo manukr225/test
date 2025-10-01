@@ -14,20 +14,35 @@
 
     header {
       background-color: #000;
-      padding: 5px;
+      padding: 10px;
       text-align: center;
     }
 
     h1 {
       margin: 0;
+      font-size: 24px;
+    }
+
+    .search-bar {
+      padding: 20px;
+      text-align: center;
+    }
+
+    #searchInput {
+      padding: 10px;
+      width: 300px;
+      max-width: 90vw;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
     }
 
     .gallery {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      padding: 5px;
-      gap: 10px;
+      padding: 10px;
+      gap: 15px;
     }
 
     .card {
@@ -37,48 +52,60 @@
       text-align: center;
       cursor: pointer;
       transition: transform 0.2s;
-      flex: 1 1 calc(25% - 20px);
-      max-width: calc(25% - 20px);
-      min-width: 60px;
+      flex: 1 1 calc(20% - 20px);
+      max-width: calc(20% - 20px);
+      min-width: 150px;
     }
 
     .card:hover {
       transform: scale(1.05);
     }
 
-    .card img {
-      width: 60%;
-      height: auto;
+    .poster-box {
+      aspect-ratio: 2 / 3;
+      width: 100%;
+      background-color: #000;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .poster {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
     }
 
     .card-title {
-      padding: 5px;
+      padding: 8px 5px 0;
       font-weight: bold;
+      font-size: 1em;
     }
 
     .card-category {
-      padding-bottom: 5px;
+      padding: 0 5px 10px;
       font-size: 0.9em;
       color: #bbb;
     }
 
     /* Responsive breakpoints */
-    @media (max-width: 524px) {
+    @media (max-width: 768px) {
       .card {
         flex: 1 1 calc(33.33% - 20px);
         max-width: calc(33.33% - 20px);
       }
     }
 
-    @media (max-width: 468px) {
+    @media (max-width: 480px) {
       .card {
         flex: 1 1 calc(50% - 20px);
         max-width: calc(50% - 20px);
       }
     }
 
-    @media (max-width: 280px) {
+    @media (max-width: 320px) {
       .card {
         flex: 1 1 100%;
         max-width: 100%;
@@ -91,12 +118,12 @@
     <h1>🎬 Movie Gallery</h1>
   </header>
 
-  <div style="padding: 20px; text-align: center;">
+  <div class="search-bar">
     <input 
       type="text" 
       id="searchInput" 
       placeholder="Search movies..." 
-      style="padding: 10px; width: 300px; max-width: 90vw; border-radius: 5px; border: none; font-size: 16px;">
+    />
   </div>
 
   <div class="gallery" id="gallery"></div>
@@ -119,7 +146,9 @@
         card.className = 'card';
         card.onclick = () => window.location.href = `player.html?id=${movie.id}`;
         card.innerHTML = `
-          <img src="${movie.poster}" alt="${movie.title}">
+          <div class="poster-box">
+            <img src="${movie.poster}" alt="${movie.title}" class="poster" onerror="this.src='fallback.jpg'">
+          </div>
           <div class="card-title">${movie.title}</div>
           <div class="card-category">${movie.category}</div>
         `;
@@ -127,7 +156,6 @@
       });
     }
 
-    // SEARCH Feature
     document.getElementById('searchInput').addEventListener('input', function () {
       const searchTerm = this.value.toLowerCase();
       const filtered = allMovies.filter(movie => 
